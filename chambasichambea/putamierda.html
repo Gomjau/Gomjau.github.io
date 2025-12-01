@@ -1,0 +1,238 @@
+<?php 
+$server = "localhost";
+$user = "root";
+$pass = "";
+$db = "datos";
+
+// Conexión a la base de datos
+$conn = new mysqli($server, $user, $pass, $db);
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Variables de control
+$mensaje = "";
+$editar = false;
+$edit_id = "";
+$edit_nombre = "";
+$edit_apellido = "";
+
+// Alta
+if (isset($_POST['accion']) && $_POST['accion'] == 'alta') {
+    $nombre = $_POST['nombre'];
+    $apellido = $_POST['apellido'];
+    $sql = "INSERT INTO usuarios (nombre, apellido) VALUES ('$nombre', '$apellido')";
+    if ($conn->query($sql) === TRUE) {
+        $mensaje = "Alta realizada.";
+    } else {
+        $mensaje = "Error al insertar: " . $conn->error;
+    }
+}
+
+// Baja
+if (isset($_GET['eliminar'])) {
+    $id = $_GET['eliminar'];
+    $sql = "DELETE FROM usuarios WHERE id = $id";
+    if ($conn->query($sql) === TRUE) {
+        $mensaje = "Baja realizada.";
+    } else {
+        $mensaje = "Error al eliminar: " . $conn->error;
+    }
+}
+
+// Preparar datos para editar
+if (isset($_GET['editar'])) {
+    $id = $_GET['editar'];
+    $editar = true;
+    $sql = "SELECT * FROM usuarios WHERE id = $id";
+    $res = $conn->query($sql);
+    if ($res && $res->num_rows > 0) {
+        $fila = $res->fetch_assoc();
+        $edit_id = $fila['id'];
+        $edit_nombre = $fila['nombre'];
+        $edit_apellido = $fila['apellido'];
+    }
+}
+
+// Modificar
+if (isset($_POST['accion']) && $_POST['accion'] == 'modificar') {
+    $id = $_POST['id'];
+    $nombre = $_POST['nombre'];
+    $apellido = $_POST['apellido'];
+    $sql = "UPDATE usuarios SET nombre = '$nombre', apellido = '$apellido' WHERE id = $id";
+    if ($conn->query($sql) === TRUE) {
+        $mensaje = "Modificación realizada.";
+    } else {
+        $mensaje = "Error al modificar: " . $conn->error;
+    }
+}
+
+// Obtener registros
+$resultado = $conn->query("SELECT * FROM usuarios");
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #b75e2d;
+            margin: 0;
+            font-family: 'Merienda', cursive;
+        }
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        header img {
+            height: 400px;
+            width: 450px;
+            object-fit: contain;
+        }
+        nav {
+            background-color: #F2E3C6;
+            text-align: center;
+            padding: 20px 0;
+        }
+        nav h1 {
+            font-size: 60px;
+            color: #592312;
+            margin: 0;
+        }
+        h2 {
+            text-align: center;
+            color: #F2E3C6;
+            font-size: 30px;
+        }
+        .formulario-nombre {
+            background-color: #F2E3C6;
+            width: 60%;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+        .formulario-nombre input[type="text"],
+        .formulario-nombre input[type="submit"] {
+            font-family: 'Merienda', cursive;
+            font-size: 18px;
+            padding: 10px;
+            margin: 10px 5px;
+            border: 2px solid #592312;
+            border-radius: 10px;
+        }
+        .formulario-nombre input[type="submit"] {
+            background-color: #592312;
+            color: #F2E3C6;
+            cursor: pointer;
+        }
+        .formulario-nombre a {
+            display: inline-block;
+            text-decoration: none;
+            color: #592312;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+        table {
+            background-color: #F2E3C6;
+            border-collapse: collapse;
+            width: 80%;
+            margin: auto;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid #592312;
+            padding: 12px;
+            text-align: center;
+            color: #592312;
+        }
+        th {
+            background-color: #d4bfa6;
+            font-size: 20px;
+        }
+        td a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #592312;
+            font-weight: bold;
+        }
+        td a:hover {
+            text-decoration: underline;
+        }
+        .boton-inferior {
+            text-align: center;
+            margin: 50px 0;
+        }
+        .boton-inferior a {
+            text-decoration: none;
+            background-color: #F2E3C6;
+            color: #592312;
+            font-weight: bold;
+            padding: 18px 35px;
+            border-radius: 15px;
+            font-size: 22px;
+            border: 3px solid #592312;
+        }
+    </style>
+</head>
+<body>
+<br><br>
+    <header>
+        <img src="menuo.png" alt="Menú">
+    </header>
+
+    <nav>
+        <h1>Verificación</h1>
+    </nav>
+
+    <?php if ($mensaje != "") { ?>
+        <h2><?php echo $mensaje; ?></h2>
+    <?php } ?>
+
+    <div class="formulario-nombre">
+        <h2><?php echo $editar ? "Editar Registro" : "Agregar Registro"; ?></h2>
+        <form method="post">
+            <?php if ($editar) { ?>
+                <input type="hidden" name="accion" value="modificar">
+                <input type="hidden" name="id" value="<?php echo $edit_id; ?>">
+            <?php } else { ?>
+                <input type="hidden" name="accion" value="alta">
+            <?php } ?>
+            <input type="text" name="nombre" placeholder="Nombre" required value="<?php echo $editar ? $edit_nombre : ""; ?>">
+            <input type="text" name="apellido" placeholder="Apellido" required value="<?php echo $editar ? $edit_apellido : ""; ?>">
+            <input type="submit" value="<?php echo $editar ? "Modificar" : "Agregar"; ?>">
+            <?php if ($editar) { ?>
+                <a href="registro.php">Cancelar</a>
+            <?php } ?>
+        </form>
+    </div>
+
+    <h2>Lista de Registros</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Acciones</th>
+        </tr>
+        <?php while ($fila = $resultado->fetch_assoc()) { ?>
+            <tr>
+                <td><?php echo $fila['id']; ?></td>
+                <td><?php echo $fila['nombre']; ?></td>
+                <td><?php echo $fila['apellido']; ?></td>
+                <td>
+                    <a href="registro.php?editar=<?php echo $fila['id']; ?>">Editar</a>
+                    <a href="registro.php?eliminar=<?php echo $fila['id']; ?>" onclick="return confirm('¿Estás seguro de eliminar este registro?');">Eliminar</a>
+                </td>
+            </tr>
+        <?php } ?>
+    </table>
+
+    <div class="boton-inferior">
+        <a href="Inicio.php">Inicio</a>
+    </div>
+</body>
+</html>

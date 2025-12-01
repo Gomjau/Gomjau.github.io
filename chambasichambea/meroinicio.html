@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rio Axichilco</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    /* --- MEN --- */
+    nav {
+      background-color: #2e1807;
+      padding: 15px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    nav a:hover {
+      color: #ffcc7f;
+    }
+
+    /* --- ENCABEZADO --- */
+    header {
+      background-image:
+        linear-gradient(rgba(46,24,7,0.7), rgba(46,24,7,0.7)),
+        url("https://images.unsplash.com/photo-1509042239860-f550ce710b93");
+      height: 90vh;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      color: white;
+      padding: 20px;
+    }
+
+    header h1 {
+      font-size: 60px;
+      margin: 0;
+      text-shadow: 2px 2px 8px black;
+    }
+
+    header p {
+      font-size: 22px;
+      max-width: 700px;
+      text-shadow: 1px 1px 6px black;
+    }
+
+    /* --- SECCIONES --- */
+    section {
+      padding: 50px 10%;
+      background-color: #fff;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    section h2 {
+      color: #2e1807;
+      border-left: 5px solid #ffcc7f;
+      padding-left: 10px;
+      font-size: 32px;
+    }
+
+    section p {
+      line-height: 1.7;
+      font-size: 18px;
+      color: #333;
+    }
+
+    /* --- GALERIA --- */
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    .galeria img {
+      width: 100%;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+    .galeria img:hover {
+      transform: scale(1.05);
+    }
+
+    /* --- FOOTER --- */
+    footer {
+font-size: 50px
+      text-align: center;
+      padding: 20px;
+      background-color: #2e1807;
+      color: white;
+      margin-top: 40px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- MENU -->
+  <nav>
+    <a href="#historia">Historia</a>
+    <a href="#flora">Flora</a>
+    <a href="#fauna">Fauna</a>
+    <a href="#ubicacion">Ubicacion</a>
+    <a href="#galeria">Galeria</a>
+  </nav>
+
+  <!-- PORTADA -->
+  <header>
+    <h1>Rio Axichilco</h1>
+    <p>Explora la historia, naturaleza y belleza del Rio Axichilco, un tesoro escondido lleno de vida y tradicion.</p>
+  </header>
+
+  <!-- HISTORIA -->
+  <section id="historia">
+    <h2>Historia del Rio Axichilco</h2>
+    <p>
+      El rio Axichilco es conocido por su importancia cultural y ambiental dentro de la region en la que se encuentra.
+      Su nombre proviene de raices indigenas y su historia esta ligada al asentamiento de diversas comunidades que
+      aprovecharon sus aguas para el riego, la pesca y como via natural.
+    </p>
+    <p>
+      A lo largo del tiempo, el rio ha sido un punto clave para el desarrollo local, albergando leyendas,
+      celebraciones tradicionales y practicas ancestrales relacionadas con el agua.
+    </p>
+  </section>
+
+  <!-- FLORA -->
+  <section id="flora">
+    <h2>Flora</h2>
+    <p>
+      La vegetacion del rio Axichilco es abundante gracias a su clima y suelo fertil. En sus alrededores pueden
+      encontrarse especies como:
+    </p>
+    <ul>
+      <li>Ahuehuetes</li>
+      <li>Encinos</li>
+      <li>Pirules</li>
+      <li>Helechos silvestres</li>
+      <li>Pastizales ribereos</li>
+    </ul>
+  </section>
+
+  <!-- FAUNA -->
+  <section id="fauna">
+    <h2>Fauna</h2>
+    <p>
+      El ecosistema del rio Axichilco alberga una gran variedad de fauna. Entre los animales mas comunes destacan:
+    </p>
+    <ul>
+      <li>Ranas y sapos locales</li>
+      <li>Aves como garzas y patos silvestres</li>
+      <li>Peces de agua dulce</li>
+      <li>Tortugas acuaticas</li>
+      <li>Insectos polinizadores</li>
+    </ul>
+  </section>
+
+  <!-- UBICACION -->
+  <section id="ubicacion">
+    <h2>Ubicacion</h2>
+    <p>
+      El rio Axichilco se localiza en una zona natural rica en vegetacion y rodeada de montanas. A continuacion puedes
+      ver un mapa aproximado:
+    </p>
+
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.1680046754276!2d-99.174!3d19.408!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDI0JzI4LjgiTiA5OcKwMTAnMjYuNCJX!5e0!3m2!1ses!2smx!4v000000000"
+      width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy">
+    </iframe>
+  </section>
+
+  <!-- GALERIA -->
+  <section id="galeria">
+    <h2>Galeria de Imagenes</h2>
+    <div class="galeria">
+      <img src="imag.jpg" alt="Rio">
+      <img src="imeg.jpg" alt="Vegetacion">
+      <img src="imig.jpg" alt="Naturaleza">
+      <img src="imog.jpg" alt="Montanas">
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+<a href="putamierda.php">voluntariado</a>
+<br><br>
+     2025 Rio Axichilco Pagina creada por miguel y seba
+  </footer>
+
+</body>
+</html>
